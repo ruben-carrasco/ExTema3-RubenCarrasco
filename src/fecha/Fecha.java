@@ -1,6 +1,7 @@
 package fecha;
 
 public class Fecha {
+<<<<<<< HEAD
 	/**
 	 * Atributo para el dia de la fecha
 	 */
@@ -13,6 +14,12 @@ public class Fecha {
 	 * Atributo para el año de la fecha
 	 */
 	private int a; //a�o
+=======
+	public static final int DIEZ = 10;
+	private int dia; //d�a
+	private int mes; //mes
+	private int año; //a�o
+>>>>>>> PMD-Refactor
 
 	/**
 	 * Constructor vacío
@@ -28,9 +35,9 @@ public class Fecha {
 	 * @param anio año de la fecha
 	 */
 	public Fecha(int dia, int mes, int anio) {
-		this.d = dia;
-		this.m = mes;
-		this.a = anio;
+		this.dia = dia;
+		this.mes = mes;
+		this.año = anio;
 	}
 
 	
@@ -39,66 +46,84 @@ public class Fecha {
 	 * @return boolean que es true si es correcta
 	 */
 	public boolean fechaCorrecta() {
-		boolean diaCorrecto, mesCorrecto, anioCorrecto;
-		anioCorrecto = a > 0;
-		mesCorrecto = m >= 1 && m <= 12;
-		switch (m) {
+		boolean diaCorrecto; 
+		boolean mesCorrecto;
+		boolean anioCorrecto;
+		anioCorrecto = año > 0;
+		mesCorrecto = mes >= 1 && mes <= 12;
+		boolean diaMayor1 = dia >= 1;
+		switch (mes) {
 		case 2:
 			if (esBisiesto()) {
-				diaCorrecto = d >= 1 && d <= 29;
+				diaCorrecto = diaMayor1 && dia <= 29;
 			} else {
-				diaCorrecto = d >= 1 && d <= 28;
+				diaCorrecto = diaMayor1 && dia <= 28;
 			}
 			break;
 		case 4:
 		case 6:
 		case 9:
 		case 11:
-			diaCorrecto = d >= 1 && d <= 30;
+			diaCorrecto = diaMayor1 && dia <= 30;
 			break;
 		default:
-			diaCorrecto = d >= 1 && d <= 31;
+			diaCorrecto = diaMayor1 && dia <= 31;
 		}
 		return diaCorrecto && mesCorrecto && anioCorrecto;
 	}
 
+<<<<<<< HEAD
 	/**
 	 * Metodo que comprueba si es bisiesto
 	 * @return boolean que es true si es bisiesto
 	 */
+=======
+	// M�todo esBisiesto. Solo lo usa fechaCorrecta, por eso es privado
+>>>>>>> PMD-Refactor
 	private boolean esBisiesto() {
-		boolean esBisiesto = (a % 4 == 0 && a % 100 != 0 || a % 400 == 0);
-		return esBisiesto;
+		return año % 4 == 0 && año % 100 != 0 || año % 400 == 0;
 	}
 
+<<<<<<< HEAD
 	/**
 	 * Metodo díaSiguiente, añade un dia a la fecha
 	 */
 	public void diaSiguiente() {
 		d++;
+=======
+	// M�todo diaSiguiente
+	public void nextDay() {
+		dia++;
+>>>>>>> PMD-Refactor
 		if (!fechaCorrecta()) {
-			d = 1;
-			m++;
+			dia = 1;
+			mes++;
 			if (!fechaCorrecta()) {
-				m = 1;
-				a++;
+				mes = 1;
+				año++;
 			}
 		}
 	}
 
+<<<<<<< HEAD
 	/**
 	 * Metodo toString
 	 */
+=======
+	// M�todo toString
+>>>>>>> PMD-Refactor
 	public String toString() {
-		if (d < 10 && m < 10) {
-			return "0" + d + "-0" + m + "-" + a;
-		} else if (d < 10 && m >= 10) {
-			return "0" + d + "-" + m + "-" + a;
-		} else if (d >= 10 && m < 10) {
-			return d + "-0" + m + "-" + a;
+		String res = "";
+		if (dia < DIEZ && mes < DIEZ) {
+			res = "0" + dia + "-0" + mes + "-" + año;
+		} else if (dia < DIEZ && mes >= DIEZ) {
+			res = "0" + dia + "-" + mes + "-" + año;
+		} else if (dia >= DIEZ && mes < DIEZ) {
+			res = dia + "-0" + mes + "-" + año;
 		} else {
-			return d + "-" + m + "-" + a;
+			res = dia + "-" + mes + "-" + año;
 		}
+		return res;
 	}
 
 }
